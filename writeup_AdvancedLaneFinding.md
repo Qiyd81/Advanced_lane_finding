@@ -125,12 +125,16 @@ I implemented this step in line 534 or line 572(test on single image) in my code
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](https://github.com/Qiyd81/Advanced_lane_finding.git/project_video.mp4)
 
 ---
 
 ### Discussion
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+My pipeline can only roughly go through the easiest video, so it can't deal with any unexpected environment situations(dark lanes, unclear lanes, dashed lanes and so on), the code is not robust. I need to learn more about the python language to
+better implement other solutions.
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.
+I will try to use the tricks which the class mentioned about using the class line() to trace the lines detection, and so can predict or carry over the previously detected lines, to better fit the environment.
+And also I need to learn through the Introduction of computer vision class to solve the questions I met in this project.
