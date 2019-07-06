@@ -190,9 +190,9 @@ def perspective_birdview_transform(img,M):
 # dst_pts = np.float32([[230,720],[230,0],[1100,0],[1100,720]])
 # transform_matrix = perspective_matrix(src_pts,dst_pts)
 
-# # #test the source points position
-test_straightline = cv2.imread('./test_images/straight_lines1.jpg')
-plt.imshow(test_straightline)
+# # # #test the source points position
+# test_straightline = cv2.imread('./test_images/straight_lines1.jpg')
+# plt.imshow(test_straightline)
 # plt.plot(230,720,'.')
 # plt.plot(560,470,'.')
 # plt.plot(720,470,'.')
@@ -545,38 +545,38 @@ def pipe_line(img):
     # plt.show()
     return final_output.astype('uint8')
 
-#test the pipeline function with single image
-
-image_undistort = undistort_img(test_straightline, dist_pickle)
-show(image_undistort,'image_undistort')
-# Use color_gradient to threshold the image to binary image
-image_threshold_color = color_gradient(image_undistort)
-image_threshold_combined = combined_thresholds(image_undistort)
-image_threshold = np.zeros_like(image_threshold_color)
-image_threshold[(image_threshold_color == 1) | (image_threshold_combined == 1)] = 1
-show(image_threshold, 'image_threshold', color=0)
-#Create a mask
-ysize = image_undistort.shape[0]
-xsize = image_undistort.shape[1]
-vertices = [np.array([[np.int(xsize*0.2), np.int(ysize)], [np.int(xsize*0.4), np.int(ysize*0.6)], [np.int(xsize*0.6), np.int(ysize*0.6)], [xsize, np.int(ysize)]])]
-# Use the mask to sort out ROI
-image_region = region_of_interest(image_threshold, vertices)
-show(image_region, 'image_region', color=0)
-# Pespective transform the image
-image_warp = perspective_birdview_transform(image_region, perspective_matrix()['M'])
-show(image_warp, 'image_warp', color=0)
-# Find the lines on the image
-warp_output = search_around_poly(image_warp)
-show(warp_output[0], 'output_image')
-curvature_real = measure_curvature_real(warp_output[3],warp_output[1],warp_output[2], warp_output[4])
-unwarp_output = cv2.warpPerspective(warp_output[0], perspective_matrix()['Minv'], (test_straightline.shape[1], test_straightline.shape[0]))
-final_output = cv2.addWeighted(test_straightline, 1, unwarp_output, 0.3, 0)
-cv2.putText(final_output, 'Radius of curvature:' + str(round(curvature_real[0])) + 'm', (50, 50), cv2.FONT_HERSHEY_SIMPLEX,
-            1, (255, 255, 255), thickness=2)
-cv2.putText(final_output, 'Position of vehicle:' + str(curvature_real[2]) + 'm', (100, 100),
-                 cv2.FONT_HERSHEY_SIMPLEX,
-                 1, (255, 255, 255), thickness=2)
-show(final_output,'final_output')
+# #test the pipeline function with single image
+#
+# image_undistort = undistort_img(test_straightline, dist_pickle)
+# show(image_undistort,'image_undistort')
+# # Use color_gradient to threshold the image to binary image
+# image_threshold_color = color_gradient(image_undistort)
+# image_threshold_combined = combined_thresholds(image_undistort)
+# image_threshold = np.zeros_like(image_threshold_color)
+# image_threshold[(image_threshold_color == 1) | (image_threshold_combined == 1)] = 1
+# show(image_threshold, 'image_threshold', color=0)
+# #Create a mask
+# ysize = image_undistort.shape[0]
+# xsize = image_undistort.shape[1]
+# vertices = [np.array([[np.int(xsize*0.2), np.int(ysize)], [np.int(xsize*0.4), np.int(ysize*0.6)], [np.int(xsize*0.6), np.int(ysize*0.6)], [xsize, np.int(ysize)]])]
+# # Use the mask to sort out ROI
+# image_region = region_of_interest(image_threshold, vertices)
+# show(image_region, 'image_region', color=0)
+# # Pespective transform the image
+# image_warp = perspective_birdview_transform(image_region, perspective_matrix()['M'])
+# show(image_warp, 'image_warp', color=0)
+# # Find the lines on the image
+# warp_output = search_around_poly(image_warp)
+# show(warp_output[0], 'output_image')
+# curvature_real = measure_curvature_real(warp_output[3],warp_output[1],warp_output[2], warp_output[4])
+# unwarp_output = cv2.warpPerspective(warp_output[0], perspective_matrix()['Minv'], (test_straightline.shape[1], test_straightline.shape[0]))
+# final_output = cv2.addWeighted(test_straightline, 1, unwarp_output, 0.3, 0)
+# cv2.putText(final_output, 'Radius of curvature:' + str(round(curvature_real[0])) + 'm', (50, 50), cv2.FONT_HERSHEY_SIMPLEX,
+#             1, (255, 255, 255), thickness=2)
+# cv2.putText(final_output, 'Position of vehicle:' + str(curvature_real[2]) + 'm', (100, 100),
+#                  cv2.FONT_HERSHEY_SIMPLEX,
+#                  1, (255, 255, 255), thickness=2)
+# show(final_output,'final_output')
 # #TODO test
 # cv2.putText(final_output, 'Position of vehicle:' + str(curvature_real[2]) + 'm', (100, 100),
 #                 cv2.FONT_HERSHEY_SIMPLEX,
@@ -638,8 +638,8 @@ show(final_output,'final_output')
 # for frame in frames:
 #     frame.recent_xfitted =
 
-# video_output = 'project_solution.mp4'
-# clipl = VideoFileClip("project_video.mp4")
-# white_clip = clipl.fl_image(pipe_line)
-# # %time white_clip.write_videofile(video_output,audio=False)
-# white_clip.write_videofile(video_output, audio=False)
+video_output = 'project_solution.mp4'
+clipl = VideoFileClip("project_video.mp4")
+white_clip = clipl.fl_image(pipe_line)
+# %time white_clip.write_videofile(video_output,audio=False)
+white_clip.write_videofile(video_output, audio=False)
