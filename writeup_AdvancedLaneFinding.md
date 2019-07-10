@@ -15,12 +15,12 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 [image0]: ./test_images/original_image_with_src.jpg "straight_lines1 with source points drawed"
-[image1]: ./output_images/image_undistort "Undistorted"
+[image1]: ./output_images/image_chessboard_undistort "Undistorted"
 [image2]: ./output_images/image_threshold.jpg "Color_gradient thresholded"
 [image3]: ./output_images/image_region.jpg "Region masked"
 [image4]: ./output_images/image_warp.jpg "Perspective Warped"
 [image5]: ./output_images/image_with_search_area "Around_poly drawed"
-[image6]: ./output_images/final_output "Unwarped Image"
+[image6]: ./output_images/drawback_road "Unwarped Image"
 [video1]: ./project_solution.mp4 "Output Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -44,7 +44,7 @@ The code for this step is contained in lines 55 through 100 of the file called `
 
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
 
-I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image [image0] using the `cv2.undistort()` function and obtained this result:
+I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to image 'calibration1.jpg' in folder 'camera_cal' using the `cv2.undistort()` function and obtained this result:
 [image1]
 
 ### Pipeline (single images)
@@ -56,13 +56,12 @@ use the function 'undistort_img' with the coefficience dict 'dist_pickle' calcul
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds and combined thresholds together to generate a binary image ('color_gradient' thresholding steps at lines 112 through 134; and 'combined_thresholds' steps at lines 203 through 267 in `Advanced_lane_finding_myown.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
-
+I used a combination of color and gradient thresholds and combined thresholds together to generate a binary image ('color_gradient' thresholding steps at lines 116 through 138; and 'combined_thresholds' steps at lines 203 through 267 in `Advanced_lane_finding_myown.py`).  Here's an example of my output for this step.  
 [image2]
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `perspective_birdview_transform(img,M)`, which steps at lines 162 through 182 in the file `Advanced_lane_finding_myown.py`.
+The code for my perspective transform includes a function called `perspective_birdview_transform(img,M)`, which steps at lines 166 through 186 in the file `Advanced_lane_finding_myown.py`.
 The output image is [image3].  The `perspective_birdview_transform(img,M)` function takes as inputs an image (`img`), and also the matrix 'M' which comes from the function perspective_matrix(src_pts, dst_pts). aAnd the source (`src_pts`) and destination (`dst_pts`) points are chosen manually.
 I didn't chose the hardcode the source and destination points in the following manner, but will try next time:
 ### below is the reference I will try next time:
