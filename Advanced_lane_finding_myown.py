@@ -627,7 +627,7 @@ def pipe_line(img):
     #show(warp_output[0], 'output_image')
     curvature_real = measure_curvature_real(ploty, left_fitx, right_fitx, vehicle_pos)
     unwarp_output = cv2.warpPerspective(out_img, perspective_matrix()['Minv'], (img.shape[1], img.shape[0]))
-    show(unwarp_output, 'drawback')
+    #show(unwarp_output, 'drawback')
     final_output = cv2.addWeighted(img, 1, unwarp_output, 0.3, 0)
     #show(final_output, 'drawback')
     cv2.putText(final_output, 'Radius of curvature:' + str(round(curvature_real[0])) + 'm', (50, 50), cv2.FONT_HERSHEY_SIMPLEX,
